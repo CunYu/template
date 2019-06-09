@@ -1,12 +1,30 @@
-apply plugin: 'java'
-
-repositories {
-    mavenCentral()
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.5.RELEASE")
+    }
 }
 
-dependencies {
+allprojects {
 
-    compile("org.springframework.boot:spring-boot-starter-parent:2.0.6.RELEASE")
-    compile("org.springframework.boot:spring-boot-starter-web:2.0.6.RELEASE")
-    compile("org.springframework.cloud:spring-cloud-dependencies:Finchley.SR2")
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compile("org.springframework.boot:spring-boot-starter-web")
+        compile("org.projectlombok:lombok")
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:Finchley.SR2"
+        }
+    }
 }
